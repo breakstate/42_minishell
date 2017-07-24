@@ -18,7 +18,9 @@ void	shell(void)
 	char	*cmd;
 	char	**args;
 	int		i;
+	int		exit_flag;
 
+	exit_flag = 0;
 	ft_putstr("\n");
 	ft_putstr("$> **SHELL INITIATED**\n");
 	ft_putstr("\n");
@@ -36,12 +38,16 @@ void	shell(void)
 		while (args[i])
 		{
 			printf("%s\n", args[i]);
+			if (!(ft_strcmp("exit", args[0])))
+				exit_flag = 1;
 			free(args[i]);
 			i++;
 		}
 		free(args[i]);
 		free(args);
 		free(cmd);
+		if (exit_flag == 1)
+			exit(0);
 	}
 }
 
