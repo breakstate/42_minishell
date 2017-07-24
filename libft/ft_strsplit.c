@@ -6,17 +6,38 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/11 17:13:12 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/24 15:57:46 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/06/11 17:17:26 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-/* 
+/*
 **	Remember to free each element in calling function
-**	while (s_str && s_str[i])
+**	s_str[i] in loop as well as s_str after loop
 */
+
+static char		*ft_trim(const char *s, char c)
+{
+	int		i;
+	int		len;
+
+	len = ft_strlen(s);
+	i = 0;
+	while (s[i] && s[i] == c)
+	{
+		i++;
+	}
+	if ((s[i] == '\0'))
+		return (0);
+	while (s[len - 1] == c && len - 1 >= 0)
+	{
+		len--;
+	}
+	return (ft_strsub(s, i, len - i));
+
+}
 
 static char		*word_length(char *s, char c, int word)
 {
@@ -53,6 +74,8 @@ static int		count_words(const char *s, char c)
 	int		i;
 	int		count;
 
+	if (s[0] == '\0')
+		return (0);
 	i = 1;
 	count = 0;
 	if (s[0] != c)
@@ -73,12 +96,12 @@ char			**ft_strsplit(char const *s, char c)
 	int		word_count;
 	char	*trimmed_str;
 	char	*word;
-
 	i = 0;
-	trimmed_str = ft_strtrim_delim(s, c);
 	word_count = count_words(s, c);
-	//if (!(word_count))
-
+	if (word_count == 0 || s[0] == '\0')
+		trimmed_str = 0;
+	else
+	trimmed_str = ft_trim(s, c);
 	strsplit = (char **)ft_memalloc(sizeof(char *) * word_count + 1);
 	if (strsplit == NULL)
 		return (NULL);
@@ -88,21 +111,7 @@ char			**ft_strsplit(char const *s, char c)
 		strsplit[i] = word;
 		i++;
 	}
+	strsplit[i] = 0;
 	free(trimmed_str);
 	return (strsplit);
-}
-
-int main()
-{
-	char *str;
-	char **s_str;
-	int i = 0;
-	str = "   1  ";
-	s_str = ft_strsplit(str, ' ');
-	while (s_str[i])
-	{
-		printf("%s\n", s_str[i]);
-		i++;
-	}
-	return (0);
 }

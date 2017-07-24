@@ -11,29 +11,37 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdio.h"
 
 void	shell(void)
 {
 	char	*cmd;
 	char	**args;
-	
+	int		i;
+
 	ft_putstr("\n");
-	ft_putstr("$> **INITIATING SHELL**\n");
-	sleep(1);
-	ft_putstr(".");
-	sleep(1);
-	ft_putstr(".");
-	sleep(1);
-	ft_putstr(".");
-	sleep(1);
+	ft_putstr("$> **SHELL INITIATED**\n");
 	ft_putstr("\n");
-	printf("%s\n", getcwd(NULL, 20));
 	while (42)
 	{
+		i = 0;
+		cmd = NULL;
+		args = NULL;
 		ft_putstr("$> ");
-		if (get_next_line(0, &cmd) < 0)
+		if (get_next_line(0, &cmd) < 1)
+		{
 			return ;
-		//args = ft_strsplit(cmd);
+		}
+		args = ft_strsplit(cmd, ' ');
+		while (args[i])
+		{
+			printf("%s\n", args[i]);
+			free(args[i]);
+			i++;
+		}
+		free(args[i]);
+		free(args);
+		free(cmd);
 	}
 }
 
