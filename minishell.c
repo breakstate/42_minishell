@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 #include "stdio.h"
 
 void	shell(void)
@@ -19,35 +19,37 @@ void	shell(void)
 	char	**args;
 	int		i;
 	int		exit_flag;
+	char	*path;
 
 	exit_flag = 0;
-	ft_putstr("\n");
-	ft_putstr("$> **SHELL INITIATED**\n");
-	ft_putstr("\n");
+	fake_load();
 	while (42)
 	{
 		i = 0;
 		cmd = NULL;
 		args = NULL;
+		path = getcwd(NULL, 0);
+		ft_putstr(path);
 		ft_putstr("$> ");
 		if (get_next_line(0, &cmd) < 1)
 		{
 			return ;
 		}
 		args = ft_strsplit(cmd, ' ');
+		if (args[0])
+			launcher(args);
 		while (args[i])
 		{
-			printf("%s\n", args[i]);
-			if (!(ft_strcmp("exit", args[0])))
-				exit_flag = 1;
-			free(args[i]);
+			//if (!(ft_strcmp("exit", args[0])))
+			//{
+			//	clean_up(&args[i], &args, &cmd);
+			//	exit(0);
+			//}
+			printf(">>%s\n", args[i]);
+			//free(args[i]);
 			i++;
 		}
-		free(args[i]);
-		free(args);
-		free(cmd);
-		if (exit_flag == 1)
-			exit(0);
+		clean_up(&args[i], &args, &cmd);
 	}
 }
 
