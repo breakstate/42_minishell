@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 15:38:27 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/24 16:47:24 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/07/27 16:35:39 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,28 @@ void	shell(void)
 			return ;
 		}
 		args = ft_strsplit(cmd, ' ');
-		if (args[0])
+	if (*args)
+	{
+		if (  ft_strcmp("exit", args[0]) == 0 )
+		{
+			clean_up(args[i], args, cmd, path);
+			exit(0);
+		}
+		else
 			launcher(args);
+	}
 		while (args[i])
 		{
-			//if (!(ft_strcmp("exit", args[0])))
-			//{
-			//	clean_up(&args[i], &args, &cmd);
-			//	exit(0);
-			//}
+/*			if (!(ft_strcmp("exit", args[0])))
+			{
+				clean_up(&args[i], &args, &cmd);
+				exit(0);
+			}*/
 			printf(">>%s\n", args[i]);
-			//free(args[i]);
+			free(args[i]);
 			i++;
 		}
-		clean_up(&args[i], &args, &cmd);
+		clean_up(args[i], args, cmd, path);
 	}
 }
 
