@@ -6,24 +6,24 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 15:38:27 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/28 16:24:37 by bmoodley         ###   ########.fr       */
+/*   Updated: 2017/07/29 14:35:41 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "stdio.h"
 
-int		shell_helper(t_pack *pack, int i)
+int		shell_helper(t_pack *pack)
 {
 	if (ft_strcmp("exit", pack->args[0]) == 0)
 	{
-		clean_up(pack->args[i], pack->args, pack->cmd, pack->path);
+		clean_up(pack);
 		exit(0);
 	}
 	else
-		launcher(pack->args);
-	printf(">>%s\n", pack->args[i]);
-	free(pack->args[i]);
+		launcher(pack);
+	//printf(">>%s\n", pack->args[0]);--
+	//free(pack->args[i]);
 	return (0);
 }
 
@@ -41,16 +41,11 @@ void	shell(t_pack *pack)
 		ft_putstr(pack->path);
 		ft_putstr("$> ");
 		if (get_next_line(0, &(pack->cmd)) < 1)
-		{
 			return ;
-		}
 		pack->args = ft_strsplit(pack->cmd, ' ');
-		while (pack->args[i])
-		{
-			shell_helper(pack, i);
-			i++;
-		}
-		clean_up(pack->args[i], pack->args, pack->cmd, pack->path);
+		if (pack->args[0])
+			shell_helper(pack);
+		clean_up(pack);
 	}
 }
 

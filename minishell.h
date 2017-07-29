@@ -11,10 +11,17 @@ typedef struct	s_pack
 	char		*path;
 }				t_pack;
 
-void	clean_up(char *args_i, char **args, char *cmd, char *path);
+void	clean_up(t_pack *pack);//char *args_i, char **args, char *cmd, char *path);
 void	fake_load(void);
-void	launcher(char **args);
-int		ft_cd(char *arg);
+void	launcher(t_pack *pack);
+
+/*
+**		Built-in function declarations:
+*/
+
+int		ft_cd(t_pack *pack);
+int		ft_echo(t_pack *pack);
+
 void	ft_exit(void);
 
 #endif

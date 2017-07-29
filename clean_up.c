@@ -1,9 +1,16 @@
 #include "minishell.h"
 
-void	clean_up(char *args_i, char **args, char *cmd, char *path)
+void	clean_up(t_pack *pack)//char *args_i, char **args, char *cmd, char *path)
 {
-	free(args_i);
-	free(args);
-	free(cmd);
-	free(path);
+	int		i;
+
+	i = 0;
+	while (pack->args[i])
+	{
+		free(pack->args[i]);
+		i++;
+	}
+	free(pack->args);
+	free(pack->cmd);
+	free(pack->path);
 }
