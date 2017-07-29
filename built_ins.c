@@ -2,6 +2,7 @@
 
 int		ft_cd(char *arg)
 {
+	printf("arg = %s\n", arg);
 	if (!(chdir(arg) == 0))
 		return (-1);
 	return (0);
