@@ -2,14 +2,13 @@
 
 // Everything needs a rework here considering that error handling has changed
 
-int		ft_cd(t_myenv *myenv)
+void		ft_cd(t_myenv *myenv)
 {
 	if ((chdir(myenv->tokens[1]) == -1))
-		return (-1);
-	return (0);
+		myenv->error = 3;
 }
 
-int		ft_echo(t_myenv *myenv)
+void		ft_echo(t_myenv *myenv)
 {
 	int		i;
 	int		q_flag;
@@ -50,13 +49,11 @@ int		ft_echo(t_myenv *myenv)
 		i++;
 	}
 	ft_putchar('\n');
-	return (0);
 }
 
-int		ft_pwd(t_myenv *myenv)
+void		ft_pwd(t_myenv *myenv)
 {
 	ft_putendl(myenv->path);
-	return (0);
 }
 
 /*

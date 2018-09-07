@@ -29,9 +29,9 @@ void	launchbuiltin();
 **		Built-in function declarations:
 */
 
-int		ft_cd(t_myenv *pack);
-int		ft_echo(t_myenv *pack);
-int		ft_pwd(t_myenv *pack);
+void	ft_cd(t_myenv *pack);
+void	ft_echo(t_myenv *pack);
+void	ft_pwd(t_myenv *pack);
 void	ft_exit(void);
 
 #endif
