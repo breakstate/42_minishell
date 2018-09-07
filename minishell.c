@@ -99,6 +99,7 @@ int		main(void)
 	shell(&myenv);
 */
 	init(&myenv);
+	myenv.path = getcwd(NULL, 0);
 	while(myenv.loop)
 	{
 		ft_putstr("$> "); // prompt

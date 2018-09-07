@@ -24,7 +24,7 @@ int		isbuiltin(t_myenv *myenv)
 
 void	launchbuiltin(t_myenv *myenv, int i)
 {
-	int (*foo[5])(t_myenv *);
+	int (*foo[6])(t_myenv *);
 
 	foo[0] = &ft_cd;
 	foo[1] = &ft_echo;

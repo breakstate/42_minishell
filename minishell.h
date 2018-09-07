@@ -31,6 +31,7 @@ void	launchbuiltin();
 
 int		ft_cd(t_myenv *pack);
 int		ft_echo(t_myenv *pack);
+int		ft_pwd(t_myenv *pack);
 void	ft_exit(void);
 
 #endif

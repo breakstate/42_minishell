@@ -52,6 +52,13 @@ int		ft_echo(t_myenv *myenv)
 	ft_putchar('\n');
 	return (0);
 }
+
+int		ft_pwd(t_myenv *myenv)
+{
+	ft_putendl(myenv->path);
+	return (0);
+}
+
 /*
 int		ft_echo(t_myenv *myenv)
 {
