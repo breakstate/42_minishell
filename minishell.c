@@ -12,54 +12,67 @@
 
 #include "minishell.h"
 
-int		shell_helper(t_pack *pack)
+int		shell_helper(t_myenv *myenv)
 {
-	if (ft_strcmp("exit", pack->args[0]) == 0)
+	if (ft_strcmp("exit", myenv->tokens[0]) == 0)
 	{
-		clean_up(pack);
+		clean_up(myenv);
 		exit(0);
 	}
 	else
-		launcher(pack);
-	//printf(">>%s\n", pack->args[0]);--
-	//free(pack->args[i]);
+		launcher(myenv);
+	//printf(">>%s\n", myenv->tokens[0]);--
+	//free(myenv->tokens[i]);
 	return (0);
 }
 
-void	shell(t_pack *pack)
+void	shell(t_myenv *myenv)
 {
 	int		i;
 	int		quit;
 
 	quit = 0;
-	pack->exit_flag = 0;
+	myenv->exit_flag = 0;
 
 	//fake_load();
 	while (!(quit))
 	{
 		// i = 0; // why?
-		pack->args = NULL;
-		pack->path = getcwd(NULL, 0);
-		ft_putstr(pack->path); // debug
+		myenv->tokens = NULL;
+		myenv->path = getcwd(NULL, 0);
+		ft_putstr(myenv->path); // debug
 		ft_putstr("$> "); // prompt
-		if (get_next_line(0, &(pack->cmd)) < 1)
+		if (get_next_line(0, &(myenv->line)) < 1)
 			return ;
-		pack->args = ft_strsplit(pack->cmd, ' ');
-		if (pack->args[0])
-			shell_helper(pack);
-		clean_up(pack);
+		myenv->tokens = ft_strsplit(myenv->line, ' ');
+		if (myenv->tokens[0])
+			shell_helper(myenv);
+		clean_up(myenv);
 	}
+}
+
+/*
+** Initialize myenv struct
+*/
+
+void	init(t_myenv *myenv)
+{
+	myenv->line = NULL;
+	myenv->tokens = NULL;
+	myenv->exit_flag = 0;
+	myenv->path = NULL;
 }
 
 int		main(void)
 {
-	t_pack pack;
-
-	pack.cmd = NULL;
-	pack.args = NULL;
-	pack.exit_flag = 0;
-	pack.path = NULL;
-	shell(&pack);
+	t_myenv myenv;
+/*
+	shell(&myenv);
+*/
+	myenv = init();
+	//while(loop)
+	//lexer
+	//parser
 	return (0);
 }
 

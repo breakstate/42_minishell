@@ -4,13 +4,13 @@
 # include "libft/includes/libft.h"
 # include "stdio.h" // debug
 
-typedef struct	s_pack
+typedef struct	s_myenv
 {
-	char		*cmd;
-	char		**args;
-	int			exit_flag;
+	char		*line;
+	char		**tokens; // 
+	int			exit_flag; // not sure if necessary
 	char		*path; // current path (pwd)
-}				t_pack;
+}				t_myenv;
 
 void	clean_up(t_pack *pack);//char *args_i, char **args, char *cmd, char *path);
 void	fake_load(void);
