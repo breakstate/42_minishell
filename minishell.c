@@ -55,13 +55,20 @@ void	shell(t_myenv *myenv)
 ** Initialize myenv struct
 */
 
-int		parser()
+void	myerror(t_myenv *myenv)
+{
+	//-1 = read error
+	//-2 = parse error
+}
+
+void	parser(t_myenv *myenv)
 {
 
 }
 
-int		lexer()
+void	lexer(t_myenv *myenv)
 {
+	if (get_next_line(0, &(myenv->line)) < 1)
 
 }
 
@@ -71,6 +78,7 @@ void	init(t_myenv *myenv)
 	myenv->tokens = NULL;
 	myenv->loop = 1;
 	myenv->path = NULL;
+	myenv->error = 0;
 }
 
 int		main(void)
@@ -82,9 +90,10 @@ int		main(void)
 	init(&myenv);
 	while(myenv.loop)
 	{
-		parser(lexer());
-	//lexer
-	//parser
+		ft_putstr("$> "); // prompt
+		lexer(&myenv);
+		parser(&myenv);
+		myerror(&myenv); // predefined error messages based on custom error codes
 	}
 	return (0);
 }

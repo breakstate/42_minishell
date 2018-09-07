@@ -10,6 +10,7 @@ typedef struct	s_myenv
 	char		**tokens; // 
 //	int			exit_flag; // not sure if necessary // replacing with loop
 	int			loop; // 
+	int			error; // error code
 	char		*path; // current path (pwd)
 }				t_myenv;
 
