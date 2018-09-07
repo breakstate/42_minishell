@@ -32,7 +32,7 @@ void	shell(t_myenv *myenv)
 	int		quit;
 
 	quit = 0;
-	myenv->exit_flag = 0;
+	myenv->loop = 0;
 
 	//fake_load();
 	while (!(quit))
@@ -55,11 +55,21 @@ void	shell(t_myenv *myenv)
 ** Initialize myenv struct
 */
 
+int		parser()
+{
+
+}
+
+int		lexer()
+{
+
+}
+
 void	init(t_myenv *myenv)
 {
 	myenv->line = NULL;
 	myenv->tokens = NULL;
-	myenv->exit_flag = 0;
+	myenv->loop = 1;
 	myenv->path = NULL;
 }
 
@@ -69,10 +79,13 @@ int		main(void)
 /*
 	shell(&myenv);
 */
-	myenv = init();
-	//while(loop)
+	init(&myenv);
+	while(myenv.loop)
+	{
+		parser(lexer());
 	//lexer
 	//parser
+	}
 	return (0);
 }
 
@@ -81,3 +94,6 @@ int		main(void)
 // lexer()
 // init()
 // main()
+
+// echo, cd, setenv, unsetenv, env, exit.
+// $, ~

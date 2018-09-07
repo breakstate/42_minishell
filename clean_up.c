@@ -1,16 +1,20 @@
 #include "minishell.h"
 
-void	clean_up(t_pack *pack)//char *args_i, char **args, char *cmd, char *path)
+void	clean_up(t_myenv *myenv)//char *tokens_i, char **tokens, char *line, char *path)
 {
 	int		i;
 
 	i = 0;
-	while (pack->args[i])
+	while (myenv->tokens[i])
 	{
-		free(pack->args[i]);
+		free(myenv->tokens[i]);
 		i++;
 	}
-	free(pack->args);
-	free(pack->cmd);
-	free(pack->path);
+	free(myenv->tokens);
+	free(myenv->line);
+	free(myenv->path);
+
+	myenv->tokens = NULL;
+	myenv->path = getcwd(NULL, 0);
+	myenv->line = NULL;
 }

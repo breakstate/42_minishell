@@ -8,20 +8,21 @@ typedef struct	s_myenv
 {
 	char		*line;
 	char		**tokens; // 
-	int			exit_flag; // not sure if necessary
+//	int			exit_flag; // not sure if necessary // replacing with loop
+	int			loop; // 
 	char		*path; // current path (pwd)
 }				t_myenv;
 
-void	clean_up(t_pack *pack);//char *args_i, char **args, char *cmd, char *path);
+void	clean_up(t_myenv *pack);//char *args_i, char **args, char *cmd, char *path);
 void	fake_load(void);
-void	launcher(t_pack *pack);
+void	launcher(t_myenv *pack);
 
 /*
 **		Built-in function declarations:
 */
 
-int		ft_cd(t_pack *pack);
-int		ft_echo(t_pack *pack);
+int		ft_cd(t_myenv *pack);
+int		ft_echo(t_myenv *pack);
 void	ft_exit(void);
 
 #endif
