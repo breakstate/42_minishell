@@ -17,11 +17,8 @@ int		isbuiltin(t_myenv *myenv)
 		ret = 4;
 	else if (ft_strcmp(myenv->tokens[0], "pwd") == 0)
 		ret = 5;
-	else if (ft_strcmp(myenv->tokens[0], "exit") == 0) // temp
-	{
-		myenv->loop = 0; // return -1
-		ret = -1;
-	}
+	else if (ft_strcmp(myenv->tokens[0], "exit") == 0) // temp pending free method
+		myenv->loop = 0; // return -1 by default
 	return (ret);
 }
 

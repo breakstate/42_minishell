@@ -53,12 +53,15 @@ void	init(t_myenv *myenv)
 	myenv->error = 0;
 }
 
+/*
+** entry point and main loop of shell
+*/
+
 int		main(void)
 {
 	t_myenv myenv;
-/*
-	shell(&myenv);
-*/
+
+	//loadanimation();
 	init(&myenv);
 	myenv.path = getcwd(NULL, 0);
 	while(myenv.loop)
@@ -72,12 +75,6 @@ int		main(void)
 	free(myenv.path);
 	return (0);
 }
-
-// exit()
-// parser()
-// lexer()
-// init()
-// main()
 
 // echo, cd, setenv, unsetenv, env, exit.
 // $, ~
