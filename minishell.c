@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "stdio.h"
 
 int		shell_helper(t_pack *pack)
 {
@@ -30,16 +29,19 @@ int		shell_helper(t_pack *pack)
 void	shell(t_pack *pack)
 {
 	int		i;
+	int		quit;
 
+	quit = 0;
 	pack->exit_flag = 0;
-	fake_load();
-	while (42)
+
+	//fake_load();
+	while (!(quit))
 	{
-		i = 0;
+		// i = 0; // why?
 		pack->args = NULL;
 		pack->path = getcwd(NULL, 0);
-		ft_putstr(pack->path);
-		ft_putstr("$> ");
+		ft_putstr(pack->path); // debug
+		ft_putstr("$> "); // prompt
 		if (get_next_line(0, &(pack->cmd)) < 1)
 			return ;
 		pack->args = ft_strsplit(pack->cmd, ' ');
@@ -60,3 +62,9 @@ int		main(void)
 	shell(&pack);
 	return (0);
 }
+
+// exit()
+// parser()
+// lexer()
+// init()
+// main()
