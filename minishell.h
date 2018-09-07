@@ -19,6 +19,13 @@ void	fake_load(void);
 void	launcher(t_myenv *pack);
 
 /*
+** parse.c
+*/
+
+int		isbuiltin(t_myenv *myenv);
+void	launchbuiltin();
+
+/*
 **		Built-in function declarations:
 */
 

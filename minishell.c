@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+/*
 int		shell_helper(t_myenv *myenv)
 {
 	if (ft_strcmp("exit", myenv->tokens[0]) == 0)
@@ -50,27 +51,37 @@ void	shell(t_myenv *myenv)
 		clean_up(myenv);
 	}
 }
-
-/*
-** Initialize myenv struct
 */
 
 void	myerror(t_myenv *myenv)
 {
-	//-1 = read error
-	//-2 = parse error
+	//1 = read error
+	//2 = parse error
 }
 
 void	parser(t_myenv *myenv)
 {
+	int	ft_ptr;
 
+	if ((ft_ptr = isbuiltin(myenv)) > -1)
+		launchbuiltin(myenv, ft_ptr);
+	//else
+		//launchnonbuiltin
 }
 
 void	lexer(t_myenv *myenv)
 {
-	if (get_next_line(0, &(myenv->line)) < 1)
-
+	if (get_next_line(0, &(myenv->line)) < 1) // may not even need line in myenv struct
+		return;
+	//myenv->error = 1; // read error (maybe showoff with enum) // may be unecessary
+	myenv->tokens = ft_strsplit(myenv->line, ' ');
+	if (myenv->tokens[0])
+		parser(myenv);
 }
+
+/*
+** Initialize myenv struct
+*/
 
 void	init(t_myenv *myenv)
 {
@@ -92,8 +103,9 @@ int		main(void)
 	{
 		ft_putstr("$> "); // prompt
 		lexer(&myenv);
-		parser(&myenv);
+		//parser(&myenv);
 		myerror(&myenv); // predefined error messages based on custom error codes
+		clean_up(&myenv);
 	}
 	return (0);
 }
