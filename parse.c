@@ -22,7 +22,7 @@ int		isbuiltin(t_myenv *myenv)
 	return (ret);
 }
 
-void	launchbuiltin(t_myenv *myenv, int i)
+void	execbuiltinfunc(t_myenv *myenv, int functype)
 {
 	void (*foo[6])(t_myenv *);
 
@@ -32,5 +32,9 @@ void	launchbuiltin(t_myenv *myenv, int i)
 	//foo[3] = &ft_unsetenv;
 	//foo[4] = &ft_env;
 	foo[5] = &ft_pwd;
-	(*foo[i])(myenv);
+	(*foo[functype])(myenv);
+}
+
+void	execfunc(t_myenv *myenv){
+	
 }

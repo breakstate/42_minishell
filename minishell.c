@@ -21,13 +21,20 @@ void	myerror(t_myenv *myenv)
 
 void	parser(t_myenv *myenv)
 {
-	int	ft_ptr;
+	int		functype;
+	pid_t	childpid;// i don't think this makes sense in this scope // looks like it does
+	int		status;
 
-	if ((ft_ptr = isbuiltin(myenv)) > -1)
-		launchbuiltin(myenv, ft_ptr);
-	//else if (ft_ptr < -1)
-		//launchnonbuiltin
-	//automatic else exit
+	functype = isbuiltin(myenv);
+	if (functype > -1)
+		execbuiltinfunc(myenv, functype);
+	else if (functype < -1)
+	{
+		if ((childpid = fork()) == 0)
+			execfunc(myenv); // calls execve
+		else
+			wait(&status); // test
+	}
 }
 
 void	lexer(t_myenv *myenv)

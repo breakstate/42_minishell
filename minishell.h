@@ -2,7 +2,10 @@
 # define _MINISHELL_H_
 
 # include "libft/includes/libft.h"
-# include "stdio.h" // debug
+# include <sys/types.h>
+# include <sys/wait.h>
+
+# include "stdio.h" // debug // REMOVE
 
 /*
 ** my environment
@@ -17,20 +20,23 @@ typedef struct	s_myenv
 	char		*path; // current path (pwd)
 }				t_myenv;
 
-
+/*
+** utilities
+*/
 
 void	clean_up(t_myenv *myenv);
-void	loadanimation(void);
+void	loadanimation(void); // debug // REMOVE
 
 /*
 ** parse.c
 */
 
 int		isbuiltin(t_myenv *myenv);
-void	launchbuiltin();
+void	execfunc(t_myenv *myenv);
+void	execbuiltinfunc(t_myenv *myenv, int functype);
 
 /*
-** Built-in functions:
+** Builtins.c
 */
 
 void	ft_cd(t_myenv *pack);
