@@ -4,6 +4,7 @@
 # include "libft/includes/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdlib.h> // setenv
 
 # include "stdio.h" // debug // REMOVE
 
