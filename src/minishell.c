@@ -31,7 +31,7 @@ void	parser(t_myenv *myenv)
 	else if (functype < -1)
 	{
 		if ((childpid = fork()) == 0)
-			execfunc(myenv); // calls execve
+			;//execfunc(myenv); // calls execve
 		else
 			wait(&status); // test
 	}
@@ -64,22 +64,26 @@ void	init(t_myenv *myenv)
 ** entry point and main loop of shell
 */
 
-int		main(void)
+int		main(int argc, char **argv, char **envp)
 {
 	t_myenv myenv;
+	extern char **environ;
+	myenv.env;
 
+	execve("/bin/ls", argv, environ);
 	//loadanimation();
+	copy_env(&myenv);
 	init(&myenv);
 	myenv.path = getcwd(NULL, 0);
 	while(myenv.loop)
 	{
 		ft_putstr("$> "); // prompt
 		lexer(&myenv);
-		//parser(&myenv);
 		myerror(&myenv); // predefined error messages based on custom error codes
 		clean_up(&myenv);
 	}
 	free(myenv.path);
+	free_2d_str(myenv.env);
 	return (0);
 }
 

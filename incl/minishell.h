@@ -1,7 +1,7 @@
 #ifndef _MINISHELL_H_
 # define _MINISHELL_H_
 
-# include "libft/includes/libft.h"
+# include "../libft/includes/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stdlib.h> // setenv
@@ -19,6 +19,7 @@ typedef struct	s_myenv
 	int			loop; // exit flag for loop
 	int			error; // error code
 	char		*path; // current path (pwd)
+	char		**env; // internal copy of environment
 }				t_myenv;
 
 /*
@@ -27,14 +28,17 @@ typedef struct	s_myenv
 
 void	clean_up(t_myenv *myenv);
 void	loadanimation(void); // debug // REMOVE
+void	free_2d_str(char **array);
+void	free_env(char **array);
 
 /*
 ** parse.c
 */
 
 int		isbuiltin(t_myenv *myenv);
-void	execfunc(t_myenv *myenv);
+//void	execfunc(t_myenv *myenv);
 void	execbuiltinfunc(t_myenv *myenv, int functype);
+void	copy_env(t_myenv *myenv);
 
 /*
 ** Builtins.c
@@ -53,6 +57,5 @@ void	myerror(t_myenv *myenv);
 void	parser(t_myenv *myenv);
 void	lexer(t_myenv *myenv);
 void	init(t_myenv *myenv);
-int		main(void);
 
 #endif
