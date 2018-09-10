@@ -70,10 +70,10 @@ int		main(int argc, char **argv, char **envp)
 	extern char **environ;
 	myenv.env;
 
-	execve("/bin/ls", argv, environ);
 	//loadanimation();
 	copy_env(&myenv);
 	init(&myenv);
+	//execve("/bin/ls", argv, environ);
 	myenv.path = getcwd(NULL, 0);
 	while(myenv.loop)
 	{

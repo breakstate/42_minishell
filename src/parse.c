@@ -49,37 +49,48 @@ void	strip_paths(t_myenv *myenv)
 void	copy_env(t_myenv *myenv)
 {
 	extern char	**environ;
-	int			i;
+	int			envsize;
 	int			j;
 
 	j = 0;
-	i = 0;
-	while(environ[i])
-		i++;
-	printf("i = %d\n", i);
-	myenv->env = malloc(sizeof(char*) * i);
-	while(j < i - 1)
+	envsize = 0;
+	while(environ[envsize])
+		envsize++;
+	printf("i = %d\n", envsize);
+	myenv->env = (char**)malloc(sizeof(char*) * envsize);
+	while(j < envsize - 1)
 	{
 		myenv->env[j] = strdup(environ[j]);
 		j++;
 	}
 	printf("j = %d\n", j);
 	myenv->env[j] = NULL;
-	// get path line
-	i = 0;
+	// execve test
+	
+	j = 0;
 	char **line;
-	while (myenv->env[i] != NULL)
+	while (myenv->env[j] != NULL)
 	{
-		line = ft_strsplit(myenv->env[i], '=');
+		line = ft_strsplit("ls -1", ' ');
 		if (ft_strcmp(line[0], "PATH") == 0)
 		{
-			printf("myenv->env[i]= %s\n", myenv->env[i]);
+			printf("myenv->env[i]= %s\n", myenv->env[j]);
 			break;
 		}
-		i++;
+		j++;
 	}
-	execve("ls", line, myenv->env);
+	int val = access("/bin/ls", R_OK);
+	execve("/bin/ls", line, myenv->env);
+	
 }
+
+
+
+
+
+
+
+
 /*
 	while (*myenv->env != NULL)
 	{
