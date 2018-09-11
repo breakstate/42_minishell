@@ -20,6 +20,7 @@ typedef struct	s_myenv
 	int			error; // error code
 	char		*path; // current path (pwd)
 	char		**env; // internal copy of environment
+	int			envsize;
 }				t_myenv;
 
 /*
@@ -50,6 +51,7 @@ void	ft_pwd(t_myenv *pack);
 void	ft_exit(void);
 void	ft_env(t_myenv* myenv);
 void	ft_unsetenv(t_myenv *myenv);
+void	ft_setenv(t_myenv *myenv);
 
 /*
 ** main.c

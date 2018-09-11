@@ -43,6 +43,31 @@ void		ft_unsetenv(t_myenv *myenv)
 	ft_putendl("not found");
 }
 
+void		ft_setenv(t_myenv *myenv)
+{
+	// resize and append, fam (don't forget to increase envsize)
+	char	**newenv;
+	int		i;
+
+	puts("setenv");
+	i = 0;
+	newenv = (char**)malloc(sizeof(char*)* myenv->envsize + 1);
+	while (myenv->env[i] != NULL)
+	{
+		newenv[i] = ft_strdup(myenv->env[i]);
+		printf("i = %d\n", i); // debug
+		free(myenv->env[i]);
+		i++;
+	}
+	newenv[i] = ft_strdup(myenv->tokens[1]);
+	newenv[i + 1] = NULL;
+	puts("post NULL pre free");
+	free(myenv->env);
+	puts("post free");
+	myenv->env = newenv;
+	myenv->envsize++;
+}
+
 /*
 int		ft_echo(t_myenv *myenv)
 {

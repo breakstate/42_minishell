@@ -60,6 +60,7 @@ void	init(t_myenv *myenv)
 	myenv->loop = 1;
 	myenv->path = getcwd(NULL, 0);
 	myenv->error = 0;
+	myenv->envsize = 0;
 	copy_env(myenv); // def leaks here, make sure these mallocs are free
 }
 

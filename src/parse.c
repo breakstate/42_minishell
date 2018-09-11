@@ -31,7 +31,7 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 	foo[0] = &ft_cd;
 	//foo[1] = &ft_echo;
 	foo[2] = &ft_env;
-	//foo[2] = &ft_setenv;
+	foo[3] = &ft_setenv;
 	foo[4] = &ft_unsetenv;
 	//foo[5] = &ft_pwd;
 	(*foo[functype])(myenv);
@@ -51,17 +51,16 @@ void	strip_paths(t_myenv *myenv)
 void	copy_env(t_myenv *myenv)
 {
 	extern char	**environ;
-	int			envsize;
 	int			j;
 
 	j = 0;
-	envsize = 0;
-	while(environ[envsize])
-		envsize++;
-	printf("i = %d\n", envsize);
+	myenv->envsize = 0;
+	while(environ[myenv->envsize])
+		myenv->envsize++;
+	printf("i = %d\n", myenv->envsize);
 	// envsize is the total natural number of subarrays, including the null terminator
-	myenv->env = (char**)malloc(sizeof(char*) * envsize);
-	while(j < envsize - 1)
+	myenv->env = (char**)malloc(sizeof(char*) * myenv->envsize);
+	while(j < myenv->envsize - 1)
 	{
 		myenv->env[j] = strdup(environ[j]);
 		j++;
