@@ -19,6 +19,8 @@ int		isbuiltin(t_myenv *myenv)
 		ret = 5;
 	else if (ft_strcmp(myenv->tokens[0], "exit") == 0) // temp pending free method
 		myenv->loop = 0; // return -1 by default
+	else
+		ret = -2;
 	return (ret);
 }
 
@@ -34,11 +36,14 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 	foo[5] = &ft_pwd;
 	(*foo[functype])(myenv);
 }
-/*
-void	execfunc(t_myenv *myenv){
-	
-}
 
+void	execfunc(t_myenv *myenv){
+	extern char **environ;
+
+
+	execve("/bin/ls", myenv->tokens, environ);
+}
+/*
 // get 2d array of possible paths
 void	strip_paths(t_myenv *myenv)
 {
@@ -80,7 +85,7 @@ void	copy_env(t_myenv *myenv)
 		j++;
 	}
 	int val = access("/bin/ls", R_OK);
-	execve("/bin/ls", line, myenv->env);
+	//execve("/bin/ls", line, myenv->env);
 	
 }
 

@@ -36,7 +36,7 @@ void	free_env(char **array);
 */
 
 int		isbuiltin(t_myenv *myenv);
-//void	execfunc(t_myenv *myenv);
+void	execfunc(t_myenv *myenv);
 void	execbuiltinfunc(t_myenv *myenv, int functype);
 void	copy_env(t_myenv *myenv);
 

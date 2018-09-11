@@ -31,7 +31,7 @@ void	parser(t_myenv *myenv)
 	else if (functype < -1)
 	{
 		if ((childpid = fork()) == 0)
-			;//execfunc(myenv); // calls execve
+			execfunc(myenv); // calls execve
 		else
 			wait(&status); // test
 	}
@@ -68,12 +68,10 @@ int		main(int argc, char **argv, char **envp)
 {
 	t_myenv myenv;
 	extern char **environ;
-	myenv.env;
 
 	//loadanimation();
 	copy_env(&myenv);
 	init(&myenv);
-	//execve("/bin/ls", argv, environ);
 	myenv.path = getcwd(NULL, 0);
 	while(myenv.loop)
 	{
