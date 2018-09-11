@@ -64,6 +64,7 @@ void	copy_env(t_myenv *myenv)
 	while(environ[envsize])
 		envsize++;
 	printf("i = %d\n", envsize);
+	// envsize is the total natural number of subarrays, including the null terminator
 	myenv->env = (char**)malloc(sizeof(char*) * envsize);
 	while(j < envsize - 1)
 	{
@@ -71,7 +72,10 @@ void	copy_env(t_myenv *myenv)
 		j++;
 	}
 	printf("j = %d\n", j);
+	// j is the index of the subarrays. envsize -1 being the index of the null terminator
 	myenv->env[j] = NULL;
+}
+/*
 	// execve test
 	
 	j = 0;
@@ -90,14 +94,7 @@ void	copy_env(t_myenv *myenv)
 	//execve("/bin/ls", line, myenv->env);
 	
 }
-
-
-
-
-
-
-
-
+*/
 /*
 	while (*myenv->env != NULL)
 	{
