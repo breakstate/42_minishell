@@ -35,6 +35,8 @@ void	parser(t_myenv *myenv)
 		else
 			wait(&status); // test
 	}
+	else
+		myenv->loop = 0;
 }
 
 void	lexer(t_myenv *myenv)
@@ -67,8 +69,10 @@ void	init(t_myenv *myenv)
 int		main(int argc, char **argv, char **envp)
 {
 	t_myenv myenv;
-	extern char **environ;
+	//extern char **environ;
 
+	if (!(isatty(fileno(stdin))))
+		exit(-1);
 	//loadanimation();
 	copy_env(&myenv);
 	init(&myenv);

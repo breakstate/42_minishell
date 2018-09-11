@@ -40,8 +40,10 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 void	execfunc(t_myenv *myenv){
 	extern char **environ;
 
+	char *path;
 
-	execve("/bin/ls", myenv->tokens, environ);
+	path = ft_strjoin("/bin/", myenv->tokens[0]);
+	execve(path, myenv->tokens, environ);
 }
 /*
 // get 2d array of possible paths
