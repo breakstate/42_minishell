@@ -17,8 +17,8 @@ int		isbuiltin(t_myenv *myenv)
 		ret = 4;
 	else if (ft_strcmp(myenv->tokens[0], "pwd") == 0)
 		ret = 5;
-	else if (ft_strcmp(myenv->tokens[0], "exit") == 0) // temp pending free method
-		myenv->loop = 0; // return -1 by default
+	else if (ft_strcmp(myenv->tokens[0], "exit") == 0)
+		myenv->loop = 0; // return -1 by default for exit
 	else
 		ret = -2;
 	return (ret);
@@ -29,21 +29,16 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 	void (*foo[6])(t_myenv *);
 
 	foo[0] = &ft_cd;
-	foo[1] = &ft_echo;
+	//foo[1] = &ft_echo;
+	foo[2] = &ft_env;
 	//foo[2] = &ft_setenv;
-	//foo[3] = &ft_unsetenv;
-	//foo[4] = &ft_env;
-	foo[5] = &ft_pwd;
+	foo[4] = &ft_unsetenv;
+	//foo[5] = &ft_pwd;
 	(*foo[functype])(myenv);
 }
 
 void	execfunc(t_myenv *myenv){
-	extern char **environ;
-
-	char *path;
-
-	//path = ft_strjoin("/bin/", myenv->tokens[0]);
-	execve(myenv->tokens[0], myenv->tokens, environ);
+	execve(myenv->tokens[0], myenv->tokens, myenv->env);
 }
 /*
 // get 2d array of possible paths
@@ -75,6 +70,7 @@ void	copy_env(t_myenv *myenv)
 	// j is the index of the subarrays. envsize -1 being the index of the null terminator
 	myenv->env[j] = NULL;
 }
+
 /*
 	// execve test
 	

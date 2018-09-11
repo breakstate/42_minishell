@@ -48,6 +48,8 @@ void	ft_cd(t_myenv *pack);
 void	ft_echo(t_myenv *pack);
 void	ft_pwd(t_myenv *pack);
 void	ft_exit(void);
+void	ft_env(t_myenv* myenv);
+void	ft_unsetenv(t_myenv *myenv);
 
 /*
 ** main.c
@@ -57,5 +59,11 @@ void	myerror(t_myenv *myenv);
 void	parser(t_myenv *myenv);
 void	lexer(t_myenv *myenv);
 void	init(t_myenv *myenv);
+
+/*
+** debug
+*/
+
+void	debugEnvPrint(t_myenv *myenv);
 
 #endif

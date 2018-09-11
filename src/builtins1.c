@@ -8,6 +8,67 @@ void		ft_cd(t_myenv *myenv)
 		myenv->error = 3;
 }
 
+void		ft_env(t_myenv *myenv)
+{
+	int i = 0;
+	while (myenv->env[i])
+	{
+		if (ft_strcmp(myenv->env[i], "empty"))
+			ft_putendl(myenv->env[i]);
+		i++;
+	}
+}
+
+void		ft_unsetenv(t_myenv *myenv)
+{
+	int		i;
+	char	**args;
+	char	*empty;
+
+	if (!(myenv->tokens[1]) || (myenv->tokens[2]))
+		ft_putendl("unsetenv error");
+	i = 0;
+	while (myenv->env[i] != NULL)
+	{
+		if (ft_strncmp(myenv->tokens[1], myenv->env[i], ft_strlen(myenv->tokens[1])) == 0)
+		{
+			free(myenv->env[i]);
+			empty = ft_memalloc(6);
+			ft_strcpy(empty, "empty");
+			myenv->env[i] = empty;
+			break;
+		}
+		i++;
+	}
+	ft_putendl("not found");
+}
+
+/*
+int		ft_echo(t_myenv *myenv)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	j = 0;
+	while(myenv->tokens[i])
+	{
+		while (myenv->tokens[i][j])
+		{
+			if (myenv->tokens[i][j] != '"')
+				ft_putchar(myenv->tokens[i][j]);
+			else if (myenv->tokens[i][j] == '"' && j > 0 && myenv->tokens[i][j - 1] == 92)
+				ft_putchar(92);
+			j++;
+		}
+		ft_putchar('\n');
+		j = 0;
+		i++;
+	}
+	return (0);
+}
+*/
+/*
 void		ft_echo(t_myenv *myenv)
 {
 	int		i;
@@ -49,35 +110,5 @@ void		ft_echo(t_myenv *myenv)
 		i++;
 	}
 	ft_putchar('\n');
-}
-
-void		ft_pwd(t_myenv *myenv)
-{
-	ft_putendl(myenv->path);
-}
-
-/*
-int		ft_echo(t_myenv *myenv)
-{
-	int		i;
-	int		j;
-
-	i = 1;
-	j = 0;
-	while(myenv->tokens[i])
-	{
-		while (myenv->tokens[i][j])
-		{
-			if (myenv->tokens[i][j] != '"')
-				ft_putchar(myenv->tokens[i][j]);
-			else if (myenv->tokens[i][j] == '"' && j > 0 && myenv->tokens[i][j - 1] == 92)
-				ft_putchar(92);
-			j++;
-		}
-		ft_putchar('\n');
-		j = 0;
-		i++;
-	}
-	return (0);
 }
 */

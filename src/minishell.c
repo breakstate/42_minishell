@@ -83,8 +83,11 @@ int		main(int argc, char **argv, char **envp)
 		clean_up(&myenv); // test thoroughly
 	}
 	free(myenv.path);
-	//free_2d_str(myenv.env); // test
+	free_2d_str(myenv.env); // test
 	return (0);
 }
 
 // $, ~
+// setenv
+// unsetenv
+// env
