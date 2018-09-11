@@ -42,8 +42,8 @@ void	execfunc(t_myenv *myenv){
 
 	char *path;
 
-	path = ft_strjoin("/bin/", myenv->tokens[0]);
-	execve(path, myenv->tokens, environ);
+	//path = ft_strjoin("/bin/", myenv->tokens[0]);
+	execve(myenv->tokens[0], myenv->tokens, environ);
 }
 /*
 // get 2d array of possible paths

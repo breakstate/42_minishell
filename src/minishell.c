@@ -58,8 +58,9 @@ void	init(t_myenv *myenv)
 	myenv->line = NULL;
 	myenv->tokens = NULL;
 	myenv->loop = 1;
-	myenv->path = NULL;
+	myenv->path = getcwd(NULL, 0);
 	myenv->error = 0;
+	copy_env(myenv); // def leaks here, make sure these mallocs are free
 }
 
 /*
@@ -69,25 +70,21 @@ void	init(t_myenv *myenv)
 int		main(int argc, char **argv, char **envp)
 {
 	t_myenv myenv;
-	//extern char **environ;
 
 	if (!(isatty(fileno(stdin))))
 		exit(-1);
 	//loadanimation();
-	copy_env(&myenv);
 	init(&myenv);
-	myenv.path = getcwd(NULL, 0);
 	while(myenv.loop)
 	{
 		ft_putstr("$> "); // prompt
 		lexer(&myenv);
 		myerror(&myenv); // predefined error messages based on custom error codes
-		clean_up(&myenv);
+		clean_up(&myenv); // test thoroughly
 	}
 	free(myenv.path);
-	free_2d_str(myenv.env);
+	//free_2d_str(myenv.env); // test
 	return (0);
 }
 
-// echo, cd, setenv, unsetenv, env, exit.
 // $, ~
