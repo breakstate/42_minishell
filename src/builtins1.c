@@ -45,7 +45,6 @@ void		ft_unsetenv(t_myenv *myenv)
 
 void		ft_setenv(t_myenv *myenv)
 {
-	// resize and append, fam (don't forget to increase envsize)
 	char	**newenv;
 	int		i;
 
