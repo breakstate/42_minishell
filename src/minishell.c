@@ -58,7 +58,7 @@ void	init(t_myenv *myenv)
 	myenv->line = NULL;
 	myenv->tokens = NULL;
 	myenv->loop = 1;
-	myenv->path = getcwd(NULL, 0);
+	//myenv->path = getcwd(NULL, 0);
 	myenv->error = 0;
 	myenv->envsize = 0;
 	copy_env(myenv); // def leaks here, make sure these mallocs are free
@@ -83,7 +83,7 @@ int		main(int argc, char **argv, char **envp)
 		myerror(&myenv); // predefined error messages based on custom error codes
 		clean_up(&myenv); // test thoroughly
 	}
-	free(myenv.path);
+	//free(myenv.path);
 	free_2d_str(myenv.env); // test
 	return (0);
 }
@@ -92,3 +92,7 @@ int		main(int argc, char **argv, char **envp)
 // setenv
 // unsetenv
 // env
+
+// ft_strdup
+// ft_memalloc
+// ft_strsplit

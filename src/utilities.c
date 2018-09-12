@@ -4,22 +4,13 @@ void	free_2d_str(char **array)
 {
 	int	i;
 
-	i = -1;
-	while (array[++i]){
+	i = 0;
+	while (array[i]){
 		printf("freeing %s\n", array[i]);
 		free(array[i]);
+		i++;
 	}
-}
-
-void	free_env(char **array)
-{
-	int	i;
-
-	i = -1;
-	while (array[++i] != NULL){
-		printf("array = %s\n", array[i]);
-		free(array[i]);
-	}
+	free(array);
 }
 
 void	clean_up(t_myenv *myenv)
@@ -27,10 +18,10 @@ void	clean_up(t_myenv *myenv)
 	free_2d_str(myenv->tokens);
 	free(myenv->tokens);
 	free(myenv->line);
-	free(myenv->path);
+	//free(myenv->path);
 	myenv->tokens = NULL;
 	myenv->line = NULL;
-	myenv->path = getcwd(NULL, 0);
+	//myenv->path = getcwd(NULL, 0);
 }
 
 void	fake_load(void)

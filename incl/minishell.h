@@ -18,7 +18,7 @@ typedef struct	s_myenv
 	char		**tokens; // tokenized line delimited by ' '
 	int			loop; // exit flag for loop
 	int			error; // error code
-	char		*path; // current path (pwd)
+	//char		*path; // current path (pwd)
 	char		**env; // internal copy of environment
 	int			envsize;
 }				t_myenv;

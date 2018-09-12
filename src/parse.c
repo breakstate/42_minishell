@@ -52,9 +52,9 @@ void	copy_env(t_myenv *myenv)
 {
 	extern char	**environ;
 	int			j;
+	//char **environ = ft_strsplit("Testing oen two three", ' ');
 
 	j = 0;
-	myenv->envsize = 0;
 	while(environ[myenv->envsize])
 		myenv->envsize++;
 	printf("i = %d\n", myenv->envsize);
@@ -68,6 +68,7 @@ void	copy_env(t_myenv *myenv)
 	printf("j = %d\n", j);
 	// j is the index of the subarrays. envsize -1 being the index of the null terminator
 	myenv->env[j] = NULL;
+	free_2d_str(environ);
 }
 
 /*
