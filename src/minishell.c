@@ -22,7 +22,7 @@ void	myerror(t_myenv *myenv)
 void	parser(t_myenv *myenv)
 {
 	int		functype;
-	pid_t	childpid;// i don't think this makes sense in this scope // looks like it does
+	pid_t	childpid;
 	int		status;
 
 	functype = isbuiltin(myenv);
@@ -33,7 +33,7 @@ void	parser(t_myenv *myenv)
 		if ((childpid = fork()) == 0)
 			execfunc(myenv); // calls execve
 		else
-			wait(&status); // test
+			wait(&status);
 	}
 	else
 		myenv->loop = 0;
@@ -41,7 +41,7 @@ void	parser(t_myenv *myenv)
 
 void	lexer(t_myenv *myenv)
 {
-	if (get_next_line(0, &(myenv->line)) < 1) // may not even need line in myenv struct
+	if (get_next_line(0, &(myenv->line)) < 1)
 		return;
 	//myenv->error = 1; // read error (maybe showoff with enum) // may be unecessary
 	myenv->tokens = ft_strsplit(myenv->line, ' ');
@@ -58,10 +58,9 @@ void	init(t_myenv *myenv)
 	myenv->line = NULL;
 	myenv->tokens = NULL;
 	myenv->loop = 1;
-	//myenv->path = getcwd(NULL, 0);
 	myenv->error = 0;
 	myenv->envsize = 0;
-	copy_env(myenv); // def leaks here, make sure these mallocs are free
+	copy_env(myenv);
 }
 
 /*
@@ -81,18 +80,12 @@ int		main(int argc, char **argv, char **envp)
 		ft_putstr("$> "); // prompt
 		lexer(&myenv);
 		myerror(&myenv); // predefined error messages based on custom error codes
-		clean_up(&myenv); // test thoroughly
+		clean_up(&myenv);
 	}
-	//free(myenv.path);
-	free_2d_str(myenv.env); // test
+	free_2d_str(myenv.env);
 	return (0);
 }
 
 // $, ~
 // setenv
-// unsetenv
-// env
-
-// ft_strdup
-// ft_memalloc
-// ft_strsplit
+// weirdly, path executes either way. test at campus

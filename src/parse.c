@@ -33,32 +33,24 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 	foo[2] = &ft_env;
 	foo[3] = &ft_setenv;
 	foo[4] = &ft_unsetenv;
-	//foo[5] = &ft_pwd;
 	(*foo[functype])(myenv);
 }
 
 void	execfunc(t_myenv *myenv){
 	execve(myenv->tokens[0], myenv->tokens, myenv->env);
 }
-/*
-// get 2d array of possible paths
-void	strip_paths(t_myenv *myenv)
-{
-	
-}
-*/
+
 // copy external env to internal inv
 void	copy_env(t_myenv *myenv)
 {
 	extern char	**environ;
 	int			j;
-	//char **environ = ft_strsplit("Testing oen two three", ' ');
 
 	j = 0;
 	while(environ[myenv->envsize])
 		myenv->envsize++;
 	printf("i = %d\n", myenv->envsize);
-	// envsize is the total natural number of subarrays, including the null terminator
+	// NOTE envsize is the total natural number of subarrays, including the null terminator
 	myenv->env = (char**)malloc(sizeof(char*) * myenv->envsize);
 	while(j < myenv->envsize - 1)
 	{
@@ -66,54 +58,7 @@ void	copy_env(t_myenv *myenv)
 		j++;
 	}
 	printf("j = %d\n", j);
-	// j is the index of the subarrays. envsize -1 being the index of the null terminator
+	// NOTE j is the index of the subarrays. envsize -1 being the index of the null terminator
 	myenv->env[j] = NULL;
-	//free_2d_str(environ);
+	//free_2d_str(environ); // weird that this works while commented
 }
-
-/*
-	// execve test
-	
-	j = 0;
-	char **line;
-	while (myenv->env[j] != NULL)
-	{
-		line = ft_strsplit("ls -1", ' ');
-		if (ft_strcmp(line[0], "PATH") == 0)
-		{
-			printf("myenv->env[i]= %s\n", myenv->env[j]);
-			break;
-		}
-		j++;
-	}
-	int val = access("/bin/ls", R_OK);
-	//execve("/bin/ls", line, myenv->env);
-	
-}
-*/
-/*
-	while (*myenv->env != NULL)
-	{
-		printf("freeing %s\n", *myenv->env);
-		free(*myenv->env++);
-	}*/
-	/* test/debug below
-	while (*myenv->env != NULL)
-	{
-		printf("Mine: %s\n", *myenv->env);
-		*myenv->env++;
-	}
-}
-
-
-	int	i;
-
-	i = 0;
-	while (*array != NULL)
-	{
-		printf("**array =%s\n", *array);
-		free(*array);
-		printf("i = %d\n", i);
-		i++;
-	}
-	*/
