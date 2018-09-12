@@ -15,8 +15,6 @@ int		isbuiltin(t_myenv *myenv)
 		ret = 3;
 	else if (ft_strcmp(myenv->tokens[0], "unsetenv") == 0)
 		ret = 4;
-	else if (ft_strcmp(myenv->tokens[0], "pwd") == 0)
-		ret = 5;
 	else if (ft_strcmp(myenv->tokens[0], "exit") == 0)
 		myenv->loop = 0; // return -1 by default for exit
 	else
@@ -37,6 +35,7 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 }
 
 void	execfunc(t_myenv *myenv){
+	printf("execfunc\narg0 = %s\n", myenv->tokens[0]); // debug
 	execve(myenv->tokens[0], myenv->tokens, myenv->env);
 }
 
@@ -49,16 +48,14 @@ void	copy_env(t_myenv *myenv)
 	j = 0;
 	while(environ[myenv->envsize])
 		myenv->envsize++;
-	printf("i = %d\n", myenv->envsize);
-	// NOTE envsize is the total natural number of subarrays, including the null terminator
+	//printf("i = %d\n", myenv->envsize);// NOTE envsize is the total natural number of subarrays, including the null terminator
 	myenv->env = (char**)malloc(sizeof(char*) * myenv->envsize);
 	while(j < myenv->envsize - 1)
 	{
 		myenv->env[j] = strdup(environ[j]);
 		j++;
 	}
-	printf("j = %d\n", j);
-	// NOTE j is the index of the subarrays. envsize -1 being the index of the null terminator
+	//printf("j = %d\n", j);// NOTE j is the index of the subarrays. envsize -1 being the index of the null terminator
 	myenv->env[j] = NULL;
 	//free_2d_str(environ); // weird that this works while commented
 }

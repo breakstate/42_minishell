@@ -6,7 +6,7 @@ void	free_2d_str(char **array)
 
 	i = 0;
 	while (array[i]){
-		printf("freeing %s\n", array[i]);
+	//	printf("freeing %s\n", array[i]);
 		free(array[i]);
 		i++;
 	}

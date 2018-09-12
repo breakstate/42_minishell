@@ -30,8 +30,11 @@ void	parser(t_myenv *myenv)
 		execbuiltinfunc(myenv, functype);
 	else if (functype < -1)
 	{
-		if ((childpid = fork()) == 0)
+		if ((childpid = fork()) == 0){
+			ft_env(myenv); // debug
 			execfunc(myenv); // calls execve
+			exit(-1); // test?
+		}
 		else
 			wait(&status);
 	}

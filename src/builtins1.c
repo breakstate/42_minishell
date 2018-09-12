@@ -36,7 +36,7 @@ void		ft_unsetenv(t_myenv *myenv)
 			empty = ft_memalloc(6);
 			ft_strcpy(empty, "empty");
 			myenv->env[i] = empty;
-			break;
+			return;
 		}
 		i++;
 	}
@@ -48,21 +48,18 @@ void		ft_setenv(t_myenv *myenv)
 	char	**newenv;
 	int		i;
 
-	puts("setenv");
 	i = 0;
 	newenv = (char**)malloc(sizeof(char*)* myenv->envsize + 1);
 	while (myenv->env[i] != NULL)
 	{
 		newenv[i] = ft_strdup(myenv->env[i]);
-		printf("i = %d\n", i); // debug
+		//printf("i = %d\n", i); // debug
 		free(myenv->env[i]);
 		i++;
 	}
 	newenv[i] = ft_strdup(myenv->tokens[1]);
 	newenv[i + 1] = NULL;
-	puts("post NULL pre free");
 	free(myenv->env);
-	puts("post free");
 	myenv->env = newenv;
 	myenv->envsize++;
 }
