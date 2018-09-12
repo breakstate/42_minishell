@@ -5,85 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/11 17:13:12 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/06/11 17:17:26 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/11/18 12:50:35 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/12/14 14:26:44 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-/*
-**	Remember to free each element in calling function
-**	s_str[i] in loop as well as s_str after loop
-*/
-
-static char		*ft_trim(const char *s, char c)
+static void		ft_gw_helper(int *count, int *flag, int *pos, int i)
 {
-	int		i;
-	int		len;
-
-	len = ft_strlen(s);
-	i = 0;
-	while (s[i] && s[i] == c)
-	{
-		i++;
-	}
-	if ((s[i] == '\0'))
-		return (0);
-	while (s[len - 1] == c && len - 1 >= 0)
-	{
-		len--;
-	}
-	return (ft_strsub(s, i, len - i));
-
+	(*count)++;
+	*flag = 1;
+	*pos = i;
 }
 
-static char		*word_length(char *s, char c, int word)
+static char		*ft_get_words(const char *str, char c, int index)
 {
-	int		i;
-	int		start;
-	int		word_count;
-	char	*str;
+	int			i;
+	int			count;
+	int			flag;
+	int			pos;
 
-	start = 0;
-	word_count = 0;
-	i = 1;
-	if (s[0] != c)
-	{
-		word_count++;
-		start = 0;
-	}
-	while (word_count < word)
-	{
-		if (s[i] != c && s[i - 1] == c)
-		{
-			word_count++;
-			start = i;
-		}
-		i++;
-	}
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	str = (ft_strsub(s, start, i - start));
-	return (str);
-}
-
-static int		count_words(const char *s, char c)
-{
-	int		i;
-	int		count;
-
-	if (s[0] == '\0')
-		return (0);
-	i = 1;
+	i = -1;
+	flag = 0;
 	count = 0;
-	if (s[0] != c)
-		count++;
-	while (s[i] != '\0')
+	pos = 0;
+	while (str[++i])
 	{
-		if (s[i] != c && s[i - 1] == c)
+		if (str[i] == c)
+			flag = 0;
+		else if (str[i] != c && flag == 0)
+			ft_gw_helper(&count, &flag, &pos, i);
+		if (index == (count))
+		{
+			while (str[i] != c)
+				i++;
+			return (ft_strsub(str, pos, i - pos));
+		}
+	}
+	return (0);
+}
+
+static int		ft_count_words(const char *str, char c)
+{
+	int			i;
+	int			count;
+	int			flag;
+
+	i = 0;
+	flag = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] != c && flag == 0)
+		{
+			flag = 1;
 			count++;
+		}
+		else if (str[i] == c)
+			flag = 0;
 		i++;
 	}
 	return (count);
@@ -91,27 +71,25 @@ static int		count_words(const char *s, char c)
 
 char			**ft_strsplit(char const *s, char c)
 {
-	int		i;
-	char	**strsplit;
-	int		word_count;
-	char	*trimmed_str;
-	char	*word;
+	int			i;
+	int			count_words;
+	char		**word_array;
+
 	i = 0;
-	word_count = count_words(s, c);
-	if (word_count == 0 || s[0] == '\0')
-		trimmed_str = 0;
-	else
-	trimmed_str = ft_trim(s, c);
-	strsplit = (char **)ft_memalloc(sizeof(char *) * word_count + 1);
-	if (strsplit == NULL)
-		return (NULL);
-	while (i < word_count)
+	word_array = NULL;
+	if (s != NULL)
 	{
-		word = word_length(trimmed_str, c, i + 1);
-		strsplit[i] = word;
-		i++;
+		count_words = ft_count_words(s, c);
+		word_array = (char **)ft_memalloc(sizeof(char *) * (count_words + 1));
+		if (word_array == NULL)
+			return (NULL);
+		while (i < count_words)
+		{
+			word_array[i] = ft_get_words(s, c, i + 1);
+			i++;
+		}
 	}
-	strsplit[i] = 0;
-	free(trimmed_str);
-	return (strsplit);
+	else
+		word_array = (char **)ft_memalloc(sizeof(char *) * 1);
+	return (word_array);
 }

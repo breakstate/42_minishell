@@ -16,7 +16,7 @@ void	free_2d_str(char **array)
 void	clean_up(t_myenv *myenv)
 {
 	free_2d_str(myenv->tokens);
-	free(myenv->tokens);
+	//free(myenv->tokens);
 	free(myenv->line);
 	//free(myenv->path);
 	myenv->tokens = NULL;
