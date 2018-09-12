@@ -1,1 +1,1 @@
-gcc -g -o minishell src/*.c -L ./libft -lft -I ./libft/includes -I ./incl
+gcc -g -o minishell src/*.c -L ./lib -lft -I ./lib/includes -I ./hdr

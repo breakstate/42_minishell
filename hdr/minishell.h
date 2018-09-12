@@ -1,7 +1,7 @@
 #ifndef _MINISHELL_H_
 # define _MINISHELL_H_
 
-# include "../libft/includes/libft.h"
+# include "../lib/includes/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stdlib.h> // setenv
