@@ -35,7 +35,7 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 }
 
 void	execfunc(t_myenv *myenv){
-	printf("execfunc\narg0 = %s\n", myenv->tokens[0]); // debug
+	printf("execfunc\narg0 = %s\n", myenv->tokens[0]); // debug // Check on the macs at campus
 	execve(myenv->tokens[0], myenv->tokens, myenv->env);
 }
 

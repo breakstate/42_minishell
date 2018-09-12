@@ -33,6 +33,7 @@ void	parser(t_myenv *myenv)
 		if ((childpid = fork()) == 0){
 			ft_env(myenv); // debug
 			execfunc(myenv); // calls execve
+			ft_putendl("execve failed: exiting");
 			exit(-1); // test?
 		}
 		else
