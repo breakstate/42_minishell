@@ -1,4 +1,4 @@
-# 42_minishell
+# 42_minishell (WIP)
 ### Parent school: Ecole 42
 ### School: WeThinkCode_ Johannesburg
 ### Year: 1
