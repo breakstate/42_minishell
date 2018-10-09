@@ -34,9 +34,53 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 	(*foo[functype])(myenv);
 }
 
-void	execfunc(t_myenv *myenv){
-	printf("execfunc\narg0 = %s\n", myenv->tokens[0]); // debug // Check on the macs at campus
-	execve(myenv->tokens[0], myenv->tokens, myenv->env);
+void	execfunc(t_myenv *myenv)
+{
+	char *newbinary;
+	if ((newbinary = verifybinary(myenv)) != NULL)
+	{
+		printf("execfunc\narg0 = %s\n", myenv->tokens[0]); // debug // Check on the macs at campus
+		execve(newbinary, myenv->tokens, myenv->env);
+	}
+	else
+	{
+		puts("binary inaccessible!"); // debug
+	}
+}
+
+// verify binary
+char	*verifybinary(t_myenv *myenv)
+{
+	char	**paths;
+	char	*pathstr;
+	char	*newbinary;
+	char	*slash;
+	int		i;
+
+	pathstr = find(myenv, "PATH");
+	paths = ft_strsplit(pathstr, ':');
+	free(pathstr);
+	i = 0;
+	while (paths[i] != NULL)
+	{
+		slash = ft_strjoin("/", myenv->tokens[0]);
+		newbinary = ft_strjoin(paths[i], slash);
+		printf(">>>newbinary = %s\n", newbinary);
+		// check if binary at path is accessible
+		if (access(newbinary, X_OK) == 0)
+		{
+			puts("can execute!"); // debug
+			free(slash);
+			return (newbinary);
+		}
+		else
+		{
+			free(slash);
+			free(newbinary);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 // copy external env to internal inv
