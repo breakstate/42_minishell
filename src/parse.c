@@ -60,25 +60,18 @@ char	*verifybinary(t_myenv *myenv)
 	pathstr = find(myenv, "PATH");
 	paths = ft_strsplit(pathstr, ':');
 	free(pathstr);
-	i = 0;
-	while (paths[i] != NULL)
+	i = -1;
+	while (paths[++i] != NULL)
 	{
 		slash = ft_strjoin("/", myenv->tokens[0]);
 		newbinary = ft_strjoin(paths[i], slash);
-		printf(">>>newbinary = %s\n", newbinary);
-		// check if binary at path is accessible
 		if (access(newbinary, X_OK) == 0)
 		{
-			puts("can execute!"); // debug
 			free(slash);
 			return (newbinary);
 		}
-		else
-		{
 			free(slash);
 			free(newbinary);
-		}
-		i++;
 	}
 	return (NULL);
 }
