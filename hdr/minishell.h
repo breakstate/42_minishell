@@ -47,8 +47,7 @@ char	*verifybinary(t_myenv *myenv);
 */
 
 void	ft_cd(t_myenv *pack);
-void	ft_echo(t_myenv *pack);
-void	ft_pwd(t_myenv *pack);
+void	ft_echo(t_myenv *myenv);
 void	ft_exit(void);
 void	ft_env(t_myenv* myenv);
 void	ft_unsetenv(t_myenv *myenv);

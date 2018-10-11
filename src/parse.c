@@ -27,7 +27,7 @@ void	execbuiltinfunc(t_myenv *myenv, int functype)
 	void (*foo[6])(t_myenv *);
 
 	foo[0] = &ft_cd;
-	//foo[1] = &ft_echo;
+	foo[1] = &ft_echo;
 	foo[2] = &ft_env;
 	foo[3] = &ft_setenv;
 	foo[4] = &ft_unsetenv;
