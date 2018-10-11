@@ -6,12 +6,16 @@ void	free_2d_str(char **array)
 
 	i = 0;
 	while (array[i]){
-		printf("freeing %s\n", array[i]);
+	//	printf("freeing %s\n", array[i]);
 		free(array[i]);
 		i++;
 	}
 	free(array);
 }
+
+/*
+ft_cleanup
+*/
 
 void	clean_up(t_myenv *myenv)
 {
@@ -36,5 +40,27 @@ void	fake_load(void)
 }
 
 /*
-ft_cleanup
+**	return value of specific environmental variable. NULL if not found
 */
+
+char	*find(t_myenv *myenv, char *envvar)
+{
+	char	**keyval;
+	char	*val;
+	int		i;
+
+	i = 0;
+	while (myenv->env[i] != NULL)
+	{
+		if (ft_strncmp(envvar, myenv->env[i], ft_strlen(envvar)) == 0)
+		{
+			keyval = ft_strsplit(myenv->env[i], '=');
+			val = ft_strdup(keyval[1]);
+			free_2d_str(keyval);
+			puts("successful free in find"); // debug
+			return (val);
+		}
+		i++;
+	}
+	return (NULL);
+}

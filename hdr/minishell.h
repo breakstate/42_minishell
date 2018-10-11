@@ -30,6 +30,7 @@ void	clean_up(t_myenv *myenv);
 void	loadanimation(void); // debug // REMOVE
 void	free_2d_str(char **array);
 void	free_env(char **array);
+char	*find(t_myenv *myenv, char *envvar);
 
 /*
 ** parse.c
@@ -39,6 +40,7 @@ int		isbuiltin(t_myenv *myenv);
 void	execfunc(t_myenv *myenv);
 void	execbuiltinfunc(t_myenv *myenv, int functype);
 void	copy_env(t_myenv *myenv);
+char	*verifybinary(t_myenv *myenv);
 
 /*
 ** Builtins.c
