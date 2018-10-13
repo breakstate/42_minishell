@@ -64,6 +64,24 @@ void		ft_setenv(t_myenv *myenv)
 	myenv->envsize++;
 }
 
+void	ft_echo(t_myenv *myenv)
+{
+	int		i;
+	int		flag;
+
+	flag = 0;
+	i = 1;
+	while (myenv->tokens[i] != NULL)
+	{
+		flag = 1;
+		ft_putstr(myenv->tokens[i]);
+		ft_putstr(" ");
+		i++;
+	}
+	if (flag)
+		ft_putendl("");
+}
+
 /*
 int		ft_echo(t_myenv *myenv)
 {
